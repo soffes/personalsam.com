@@ -30,7 +30,8 @@ class Episode < ActiveRecord::Base
   end
 
   def description_html
-    Twitter::Autolink.auto_link description
+    return nil unless description
+    Twitter::Autolink.auto_link(description).gsub("\n", '<br>')
   end
 
   def slug

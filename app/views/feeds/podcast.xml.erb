@@ -4,7 +4,7 @@
     <title>Personal Sam — <%= @type.to_s.upcase %> Video</title>
     <link>http://personalsam.com</link>
     <language>en-us</language>
-    <copyright>&#x2117;<%= Time.now.year %> Sam Soffes</copyright>
+    <copyright>&#169; <%= Time.now.year %> Sam Soffes</copyright>
     <itunes:subtitle>My daily-ish video journal</itunes:subtitle>
     <itunes:author>Sam Soffes</itunes:author>
     <itunes:summary>Personal Sam is Sam Soffes' daily-ish video journal about with rambling about what he's working on, doing day to day, etc. It's more for archival purposes than anything.</itunes:summary>
@@ -14,16 +14,16 @@
       <itunes:email>sam@soff.es</itunes:email>
     </itunes:owner>
     <itunes:image href="http://personalsam.s3.amazonaws.com/persoanl-sam-2048.png" />
-    <itunes:category text="Technology">
-      <itunes:category text="Tech News"/>
-    </itunes:category>
+    <itunes:category text="Technology"/>
 
     <% @episodes.each do |episode| %>
     <item>
       <title><%= episode.title %></title>
       <itunes:author>Sam Soffes</itunes:author>
+      <% if episode.description %>
       <itunes:subtitle><%= episode.subtitle %></itunes:subtitle>
-      <itunes:summary><![CDATA[<%= episode.description_html %>!]]></itunes:summary>
+      <itunes:summary><![CDATA[<%= raw episode.description_html %>!]]></itunes:summary>
+      <% end %>
       <itunes:image href="<%= episode.poster_url(@type) %>" />
       <enclosure url="<%= episode.video_url(@type) %>" length="<%= episode.file_size(@type) %>" type="<%= episode.content_type(@type) %>" />
       <guid>http://personalsam.com/<%= episode.slug %>?<%= @type %></guid>

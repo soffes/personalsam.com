@@ -7,6 +7,7 @@ class Episode < ActiveRecord::Base
 
     sd = json['files'].select { |f| f['quality'] == 'sd' }.first
     hd = json['files'].select { |f| f['quality'] == 'hd' }.first
+    poster_id = (json['pictures']['sizes'].first)['link'].match(/https:\/\/i\.vimeocdn\.com\/video\/([0-9]+)_/)[1]
 
     Episode.create(
       title: json['name'],
@@ -14,14 +15,14 @@ class Episode < ActiveRecord::Base
       vimeo_id: vimeo_id.to_i,
       duration: json['duration'],
       published_at: DateTime.parse(json['created_time']),
-      sd_video_url: sd['link'],
+      sd_video_url: sd['link_secure'],
       sd_content_type: sd['type'],
-      sd_file_size: Mechanize.new.head(sd['link'])['content-length'].to_i,
-      sd_poster_url: "https://i.vimeocdn.com/video/#{vimeo_id}_640x360.jpg",
-      hd_video_url: hd['link'],
+      sd_file_size: Mechanize.new.head(sd['link_secure'])['content-length'].to_i,
+      sd_poster_url: "https://i.vimeocdn.com/video/#{poster_id}_640x360.jpg",
+      hd_video_url: hd['link_secure'],
       hd_content_type: hd['type'],
-      hd_file_size: Mechanize.new.head(hd['link'])['content-length'].to_i,
-      hd_poster_url: "https://i.vimeocdn.com/video/#{vimeo_id}_1280x720.jpg",
+      hd_file_size: Mechanize.new.head(hd['link_secure'])['content-length'].to_i,
+      hd_poster_url: "https://i.vimeocdn.com/video/#{poster_id}_1280x720.jpg",
     )
   end
 
@@ -38,8 +39,10 @@ class Episode < ActiveRecord::Base
     published_at.strftime('%Y-%m-%d')
   end
 
-  def video_url(type)
-    type == :sd ? sd_video_url : hd_video_url
+  def video_url(type, secure = false)
+    url = type == :sd ? sd_video_url : hd_video_url
+    url = url.sub('https://', 'http://') unless secure
+    url
   end
 
   def content_type(type)
@@ -50,7 +53,9 @@ class Episode < ActiveRecord::Base
     type == :sd ? sd_file_size : hd_file_size
   end
 
-  def poster_url(type)
-    type == :sd ? sd_poster_url : hd_poster_url
+  def poster_url(type, secure = false)
+    url = type == :sd ? sd_poster_url : hd_poster_url
+    url = url.sub('https://', 'http://') unless secure
+    url
   end
 end

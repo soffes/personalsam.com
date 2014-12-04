@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
 
-  get 'feed/sd', to: 'feeds#sd', format: 'xml', as: 'sd_feed'
-  get 'feed/hd', to: 'feeds#hd', format: 'xml', as: 'hd_feed'
+  scope format: 'xml' do
+    get 'feed/sd.xml', to: 'feeds#sd', as: 'sd_feed'
+    get 'feed/hd.xml', to: 'feeds#hd', as: 'hd_feed'
+  end
 end

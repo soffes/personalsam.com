@@ -18,3 +18,7 @@ group :development do
   gem 'dotenv'
   gem 'foreman'
 end
+
+group :production do
+  gem 'rails_12factor'
+end

@@ -38,25 +38,26 @@ class Episode < ActiveRecord::Base
   end
 
   def slug
-    published_at.strftime('%Y-%m-%d')
+    published_at.in_time_zone("Pacific Time (US & Canada)").strftime('%Y-%m-%d')
   end
 
-  def video_url(type, secure = false)
+  def video_url(type=:hd, secure=false)
+    slug = self.slug
     url = type == :sd ? sd_video_url : hd_video_url
     url = url.sub('https://', 'http://') unless secure
-    signature = Digest::SHA1.hexdigest DOWNLOAD_SHARED_SECRET + url
-    "http://download.personalsam.com/video#{Addressable::URI.parse(url).extname}?url=#{CGI::escape url}&signature=#{signature}"
+    signature = Digest::SHA1.hexdigest DOWNLOAD_SHARED_SECRET + url + slug + type.to_s
+    "http://download.personalsam.com/video#{Addressable::URI.parse(url).extname}?url=#{CGI::escape url}&slug=#{slug}&type=#{type}&signature=#{signature}"
   end
 
-  def content_type(type)
+  def content_type(type=:hd)
     type == :sd ? sd_content_type : hd_content_type
   end
 
-  def file_size(type)
+  def file_size(type=:hd)
     type == :sd ? sd_file_size : hd_file_size
   end
 
-  def poster_url(type, secure = false)
+  def poster_url(type=:hd, secure=false)
     url = type == :sd ? sd_poster_url : hd_poster_url
     url = url.sub('https://', 'http://') unless secure
     url

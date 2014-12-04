@@ -8,6 +8,7 @@ gem 'puma'
 
 gem 'mechanize'
 gem 'twitter-text'
+gem 'addressable', require: 'addressable/uri'
 
 gem 'sass-rails'
 gem 'coffee-rails'

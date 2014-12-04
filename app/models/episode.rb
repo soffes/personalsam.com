@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class Episode < ActiveRecord::Base
   def self.create_with_vimeo_id(vimeo_id)
     require 'mechanize'
@@ -42,7 +44,8 @@ class Episode < ActiveRecord::Base
   def video_url(type, secure = false)
     url = type == :sd ? sd_video_url : hd_video_url
     url = url.sub('https://', 'http://') unless secure
-    url
+    signature = Digest::SHA1.hexdigest DOWNLOAD_SHARED_SECRET + url
+    "http://download.personalsam.com/video#{Addressable::URI.parse(url).extname}?url=#{CGI::escape url}&signature=#{signature}"
   end
 
   def content_type(type)

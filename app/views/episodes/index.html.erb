@@ -7,9 +7,7 @@
 <ol>
 <% @episodes.each do |episode| %>
   <li>
-    <h3><%= link_to episode.title, episode_url(episode) %></h3>
-    <p><%= raw episode.description_html %></p>
-    <a href="http://vimeo.com/<%= episode.vimeo_id %>" rel="external nofollow">Watch on Vimeo</a>
+    <%= render episode %>
   </li>
 <% end %>
 </ol>

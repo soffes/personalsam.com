@@ -63,4 +63,8 @@ class Episode < ActiveRecord::Base
     url = url.sub('https://', 'http://') unless secure
     url
   end
+
+  def extension(type=:hd)
+    Addressable::URI.parse(video_url(type)).extname.sub('.', '')
+  end
 end

@@ -1,0 +1,3 @@
+<h3><%= link_to episode.title, episode_url(episode) %></h3>
+<p><%= raw episode.description_html %></p>
+<p><a href="http://vimeo.com/<%= episode.vimeo_id %>" rel="external nofollow">Watch on Vimeo</a> | Download: <a href="<%= episode.video_url :hd %>" download="<%= episode.slug %> HD.<%= episode.extension :hd %>">HD</a> <a href="<%= episode.video_url :sd %>" download="<%= episode.slug %> SD.<%= episode.extension :sd %>">SD</a></p>

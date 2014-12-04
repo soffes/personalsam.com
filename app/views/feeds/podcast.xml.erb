@@ -25,6 +25,7 @@
       <% if episode.description %>
       <itunes:subtitle><%= episode.subtitle %></itunes:subtitle>
       <itunes:summary><![CDATA[<%= raw episode.description_html %>!]]></itunes:summary>
+      <description><%= episode.description %></description>
       <% end %>
       <itunes:image href="<%= episode.poster_url(@type) %>" />
       <enclosure url="<%= episode.video_url(@type) %>" length="<%= episode.file_size(@type) %>" type="<%= episode.content_type(@type) %>" />

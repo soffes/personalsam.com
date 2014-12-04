@@ -17,12 +17,9 @@ ActiveRecord::Schema.define(version: 20141202203706) do
   enable_extension "plpgsql"
 
   create_table "episodes", force: true do |t|
-    t.integer  "order",            null: false
     t.datetime "published_at"
-    t.string   "title",            null: false
+    t.string   "title",           null: false
     t.text     "description"
-    t.text     "description_html"
-    t.string   "tags"
     t.integer  "duration"
     t.integer  "vimeo_id"
     t.string   "hd_video_url"
@@ -37,7 +34,6 @@ ActiveRecord::Schema.define(version: 20141202203706) do
     t.datetime "updated_at"
   end
 
-  add_index "episodes", ["order"], name: "index_episodes_on_order", unique: true, using: :btree
   add_index "episodes", ["published_at"], name: "index_episodes_on_published_at", using: :btree
 
 end

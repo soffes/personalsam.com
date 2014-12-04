@@ -1,12 +1,9 @@
 class CreateEpisodes < ActiveRecord::Migration
   def change
     create_table :episodes do |t|
-      t.integer :order, null: false
       t.datetime :published_at
       t.string :title, null: false
       t.text :description
-      t.text :description_html
-      t.string :tags
       t.integer :duration
       t.integer :vimeo_id
       t.string :hd_video_url
@@ -21,7 +18,6 @@ class CreateEpisodes < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :episodes, :order, unique: true
     add_index :episodes, :published_at
   end
 end

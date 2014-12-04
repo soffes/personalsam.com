@@ -15,5 +15,6 @@ gem 'coffee-rails'
 gem 'uglifier'
 
 group :development do
+  gem 'dotenv'
   gem 'foreman'
 end

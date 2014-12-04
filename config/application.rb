@@ -23,5 +23,7 @@ module PersonalSam
     config.assets.version = '1.0'
     config.action_dispatch.cookies_serializer = :json
     config.session_store :cookie_store, key: '_PersonalSam_session'
+
+    config.assets.precompile += %w{externals.js}
   end
 end

@@ -14,19 +14,19 @@ class Episode < ActiveRecord::Base
       vimeo_id: vimeo_id.to_i,
       duration: json['duration'],
       published_at: DateTime.parse(json['created_time']),
-      sd_video_url: sd['link_secure'],
+      sd_video_url: sd['link'],
       sd_content_type: sd['type'],
-      sd_file_size: Mechanize.new.head(sd['link_secure'])['content-length'].to_i,
+      sd_file_size: Mechanize.new.head(sd['link'])['content-length'].to_i,
       sd_poster_url: "https://i.vimeocdn.com/video/#{vimeo_id}_640x360.jpg",
-      hd_video_url: hd['link_secure'],
+      hd_video_url: hd['link'],
       hd_content_type: hd['type'],
-      hd_file_size: Mechanize.new.head(hd['link_secure'])['content-length'].to_i,
+      hd_file_size: Mechanize.new.head(hd['link'])['content-length'].to_i,
       hd_poster_url: "https://i.vimeocdn.com/video/#{vimeo_id}_1280x720.jpg",
     )
   end
 
   def subtitle
-    description
+    description[0...255]
   end
 
   def description_html

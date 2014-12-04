@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>Personal Sam — <%= @type.to_s.upcase %> Video</title>
     <link>http://personalsam.com</link>
@@ -15,6 +15,8 @@
     </itunes:owner>
     <itunes:image href="http://personalsam.s3.amazonaws.com/persoanl-sam-2048.png" />
     <itunes:category text="Technology"/>
+    <itunes:explicit>clean</itunes:explicit>
+    <atom:link href="http://personalsam.com/feed/<%= @type %>.xml" rel="self" type="application/rss+xml" />
 
     <% @episodes.each do |episode| %>
     <item>

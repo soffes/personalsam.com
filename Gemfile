@@ -12,3 +12,7 @@ gem 'twitter-text'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
+
+group :development do
+  gem 'foreman'
+end

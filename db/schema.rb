@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141202203706) do
   create_table "episodes", force: true do |t|
     t.datetime "published_at"
     t.string   "title",           null: false
+    t.string   "slug",            null: false
     t.text     "description"
     t.integer  "duration"
     t.integer  "vimeo_id"
@@ -35,5 +36,6 @@ ActiveRecord::Schema.define(version: 20141202203706) do
   end
 
   add_index "episodes", ["published_at"], name: "index_episodes_on_published_at", using: :btree
+  add_index "episodes", ["slug"], name: "index_episodes_on_slug", using: :btree
 
 end

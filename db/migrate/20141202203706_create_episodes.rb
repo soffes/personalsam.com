@@ -3,6 +3,7 @@ class CreateEpisodes < ActiveRecord::Migration
     create_table :episodes do |t|
       t.datetime :published_at
       t.string :title, null: false
+      t.string :slug, null: false
       t.text :description
       t.integer :duration
       t.integer :vimeo_id
@@ -19,5 +20,6 @@ class CreateEpisodes < ActiveRecord::Migration
     end
 
     add_index :episodes, :published_at
+    add_index :episodes, :slug
   end
 end

@@ -10,7 +10,13 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElemen
   <% end %>
 </head>
 <body>
-<%= yield %>
+  <header>
+    <h1><a href="/" rel="home">Personal Sam</a></h1>
+    <h2>My daily-ish video journal</h2>
+  </header>
+  <main>
+    <%= yield %>
+  </main>
 <%= javascript_include_tag 'externals' %>
 <% if Rails.env.production? && MIXPANEL_TOKEN %>
   <script>mixpanel.track('Page View',{'Title':document.title,'URL':window.location.pathname});</script>

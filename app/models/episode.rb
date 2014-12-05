@@ -11,6 +11,8 @@ class Episode < ActiveRecord::Base
     hd = json['files'].select { |f| f['quality'] == 'hd' }.first
     poster_id = (json['pictures']['sizes'].first)['link'].match(/https:\/\/i\.vimeocdn\.com\/video\/([0-9]+)_/)[1]
     published_at = DateTime.parse(json['created_time'])
+    slug = json['name'].match(/([0-9]{4}-[0-9]{2}-[0-9]{2})/)[1]
+    raise 'Missing slug' unless slug
 
     Episode.create(
       title: json['name'],
@@ -18,7 +20,7 @@ class Episode < ActiveRecord::Base
       vimeo_id: vimeo_id.to_i,
       duration: json['duration'],
       published_at: published_at,
-      slug: published_at.in_time_zone('Pacific Time (US & Canada)').strftime('%Y-%m-%d'),
+      slug: slug,
       sd_video_url: sd['link_secure'],
       sd_content_type: sd['type'],
       sd_file_size: Mechanize.new.head(sd['link_secure'])['content-length'].to_i,

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.2.0'
 
 gem 'rails'
 gem 'pg'
@@ -11,6 +11,7 @@ gem 'twitter-text'
 gem 'addressable', require: 'addressable/uri'
 
 gem 'sass-rails'
+gem 'bourbon'
 gem 'coffee-rails'
 gem 'uglifier'
 
